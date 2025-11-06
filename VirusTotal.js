@@ -12,6 +12,74 @@ javascript:(function() {
     }
   }
 
+  const whitelist = [
+    'google.com',
+    'microsoft.com',
+    'github.com',
+    'mozilla.org',
+    'apple.com',
+    'amazon.com',
+    'facebook.com',
+    'linkedin.com',
+    'twitter.com',
+    'youtube.com',
+    'wikipedia.org',
+    'cloudflare.com',
+    'bing.com',
+    'yahoo.com',
+    'duckduckgo.com',
+    'reddit.com',
+    'stackoverflow.com',
+    'paypal.com',
+    'dropbox.com',
+    'zoom.us',
+    'slack.com',
+    'skype.com',
+    'adobe.com',
+    'intel.com',
+    'nvidia.com',
+    'cnn.com',
+    'bbc.co.uk',
+    'nytimes.com',
+    'reuters.com',
+    'bloomberg.com',
+    'forbes.com',
+    'medium.com',
+    'quora.com',
+    'salesforce.com',
+    'oracle.com',
+    'netflix.com',
+    'spotify.com',
+    'whatsapp.com',
+    'telegram.org',
+    'tiktok.com',
+    'roblox.com',
+    'steamcommunity.com',
+    'microsoftonline.com',
+    'office.com',
+    'live.com',
+    'outlook.com',
+    'icloud.com',
+    'zoom.com',
+    'box.com',
+    'weebly.com',
+    'wix.com',
+    'wordpress.com',
+    'godaddy.com',
+    'namecheap.com'
+  ];
+
+  function isWhitelisted(url) {
+    try {
+      const hostname = new URL(url).hostname;
+      return whitelist.some(domain =>
+        hostname === domain || hostname.endsWith('.' + domain)
+      );
+    } catch (e) {
+      return false;
+    }
+  }
+
   const htmlText = document.documentElement.outerHTML;
   const urlRegex = /\bhttps?:\/\/[^\s"'<>]+/g;
   const matches = [...htmlText.matchAll(urlRegex)];
@@ -49,7 +117,7 @@ javascript:(function() {
   matches.forEach(match => {
     const raw = match[0];
     const cleaned = cleanURL(raw);
-    if (cleaned && !seen.has(cleaned)) {
+    if (cleaned && !seen.has(cleaned) && !isWhitelisted(cleaned)) {
       seen.add(cleaned);
       const line = document.createElement('div');
       const vtLink = document.createElement('a');
