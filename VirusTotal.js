@@ -66,7 +66,9 @@ javascript:(function() {
     'wix.com',
     'wordpress.com',
     'godaddy.com',
-    'namecheap.com'
+    'namecheap.com',
+    'w3.org',
+    'github.githubassets.com'
   ];
 
   function isWhitelisted(url) {
