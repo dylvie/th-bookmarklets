@@ -107,7 +107,7 @@ javascript:(function() {
   container.appendChild(closeBtn);
 
   const title = document.createElement('div');
-  title.textContent = '🛡️ Click to check URLs on VirusTotal';
+  title.textContent = '🛡️ Click to check URLs on VirusTotal by @dylvie';
   title.style.fontWeight = 'bold';
   title.style.marginBottom = '8px';
   title.style.color = 'black';
