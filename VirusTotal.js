@@ -5,7 +5,11 @@ javascript:(function(){
   function cleanURL(url){
     try{
       const u=new URL(url);
-      return u.origin+u.pathname;
+      let cleaned=u.origin+u.pathname;
+      if(cleaned.endsWith('/')){
+        cleaned=cleaned.slice(0,-1);
+      }
+      return cleaned;
     }catch(e){return null;}
   }
   function getDomain(url){
@@ -63,6 +67,9 @@ javascript:(function(){
       seen.add(cleaned);
       const line=document.createElement('div');
       line.style.marginBottom='10px';
+      line.style.display='flex';
+      line.style.justifyContent='space-between';
+      line.style.alignItems='center';
       const vtLink=document.createElement('a');
       vtLink.href=`${cleaned}`;
       vtLink.textContent=cleaned;
@@ -70,19 +77,19 @@ javascript:(function(){
       vtLink.style.color='blue';
       vtLink.style.textDecoration='underline';
       line.appendChild(vtLink);
+      const btnGroup=document.createElement('div');
       const btnURL=document.createElement('button');
       btnURL.textContent='🔗';
-      btnURL.style.marginLeft='6px';
       btnURL.onclick=()=>window.open(`https://www.virustotal.com/gui/url/${base64urlEncode(cleaned)}/detection`,'_blank');
-      line.appendChild(btnURL);
+      btnGroup.appendChild(btnURL);
       const domain=getDomain(cleaned);
       if(domain){
         const btnDomain=document.createElement('button');
         btnDomain.textContent='🌐';
-        btnDomain.style.marginLeft='6px';
         btnDomain.onclick=()=>window.open(`https://www.virustotal.com/gui/domain/${domain}/detection`,'_blank');
-        line.appendChild(btnDomain);
+        btnGroup.appendChild(btnDomain);
       }
+      line.appendChild(btnGroup);
       container.appendChild(line);
     }
   });
