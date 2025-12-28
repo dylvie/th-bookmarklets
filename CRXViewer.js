@@ -1,0 +1,1 @@
+javascript:(function(){  var id = window.getSelection().toString().trim();  if(id){    window.open("https://robwu.nl/crxviewer/?crx=" + id, "_blank");  } else {    alert("Select an extension ID first!");  }})();
